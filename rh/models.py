@@ -19,7 +19,7 @@ class Area (models.Model):
 
 class Colaboradores (models.Model):
 	Nome = models.CharField(max_length=255)
-	Salario = models.DecimalField(decimal_places=2, max_digits=10)
+	Salario= models.DecimalField(decimal_places=2, max_digits=10)
 	Horas_Extra = models.DecimalField(decimal_places=1, max_digits=4)
 Cargo = models.ForeignKey(Area, on_delete=models.PROTECT)
 
