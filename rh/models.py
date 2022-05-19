@@ -5,8 +5,8 @@ from django.db import models
 class Empresa (models.Model):
     Nome = models.CharField(max_length=255)
 
-def __str__(self):
-        return self.nome
+    def __str__(self):
+        return self.Nome
 
 class Area (models.Model):
     Cargos = models.CharField(max_length=255)
@@ -14,7 +14,7 @@ class Area (models.Model):
     Empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT)
 
     def __str__(self):
-        return f'{self.nome} - Dep: {self.Departamento.nome} - Empresa: {self.Empresa.nome} '
+        return f'{self.Cargos} - Dep: {self.Departamento} - Empresa: {self.Empresa} '
 
 
 class Colaboradores (models.Model):
@@ -23,8 +23,8 @@ class Colaboradores (models.Model):
     Horas_Extra = models.DecimalField(decimal_places=1, max_digits=4)
     Cargo = models.ForeignKey(Area, on_delete=models.DO_NOTHING)
 
-def __str__(self):
-        return self.nome
+    def __str__(self):
+        return f' {self.Nome} / {self.Cargo}'
 
 class Ponto (models.Model):
     Colaborador = models.ForeignKey(Colaboradores, on_delete=models.DO_NOTHING)
@@ -33,7 +33,7 @@ class Ponto (models.Model):
     Saida = models.DateTimeField()
 
     def __str__(self):
-        return f'Colab {self.Colaborador} - {self.Entrada} :: {self.Saida} / {self.Carga_Horaria}'
+        return f'Colab: {self.Colaborador} - {self.Entrada} :: {self.Saida} / {self.Carga_Horaria}'
 
 class Notas (models.Model):
     Numero = models.DecimalField(decimal_places=2, max_digits=100)
@@ -43,17 +43,17 @@ class Notas (models.Model):
     Imposto = models.DecimalField(decimal_places=2, max_digits=10)
     Valor_Nota = models.DecimalField(decimal_places=2, max_digits=100)
 
-def __str__(self):
+    def __str__(self):
         return f'Nota {self.Numero} : {self.Data} : {self.Valor_Nota}'
 
 class Contabilidade (models.Model):
-    Nome = models.ForeignKey(Empresa, on_delete=models.PROTECT)
+    Nome = models.ForeignKey(Empresa, on_delete=models.DO_NOTHING)
     Saldo = models.DecimalField(decimal_places=2, max_digits=100)
     Despesas = models.DecimalField(decimal_places=2, max_digits=100)
     Salarios = models.DecimalField(decimal_places=2, max_digits=100)
     Arrecadação = models.DecimalField(decimal_places=2, max_digits=100)
 
-def __str__(self):
+    def __str__(self):
         return self.Nome
 
 
