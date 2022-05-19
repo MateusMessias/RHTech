@@ -36,7 +36,7 @@ class Ponto (models.Model):
         return f'Colab: {self.Colaborador} - {self.Entrada} :: {self.Saida} / {self.Carga_Horaria}'
 
 class Notas (models.Model):
-    Numero = models.DecimalField(decimal_places=2, max_digits=100)
+    Numero = models.DecimalField(decimal_places=0, max_digits=100)
     Data = models.DateField()
     Fornecedor = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     Cliente = models.CharField(max_length=255)
@@ -44,7 +44,7 @@ class Notas (models.Model):
     Valor_Nota = models.DecimalField(decimal_places=2, max_digits=100)
 
     def __str__(self):
-        return f'Nota {self.Numero} : {self.Data} : {self.Valor_Nota}'
+        return f'Nota {self.Numero} : {self.Data} : {self.Valor_Nota} : {self.Fornecedor}'
 
 class Contabilidade (models.Model):
     Nome = models.ForeignKey(Empresa, on_delete=models.DO_NOTHING)
