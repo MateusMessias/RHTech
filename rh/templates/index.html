@@ -66,6 +66,7 @@
                   dataType: 'json',
                   success: (data) => {
                     console.log(data)
+                    alert(data.response)
                     $('#lista_ponto').append(`<li class="list-group-item">${data.response}</li>`)
                   },
                   error: (err) => {

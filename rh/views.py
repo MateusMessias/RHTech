@@ -2,11 +2,9 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import JsonResponse
 
+import redis
 import pprint
 from pymongo import MongoClient
-
-import redis
-
 
 def index(request):
     return render(request, 'index.html')
@@ -28,7 +26,7 @@ def registro_mongo(request):
                         "departamento" : "Suporte Tecnico"
                     }
                 }, 
-                "data" : "2022-06-02", 
+                "data" : datetime.now().strftime("%d-%m-%Y"), 
                 "ponto" : [
                     {
                         "tipo" : "entrada", 
@@ -67,13 +65,13 @@ def ponto_redis(request):
     
     try:    
         r = redis.Redis(
-            host='redis-10782.c10.us-east-1-2.ec2.cloud.redislabs.com:10782',
-            port=17597, 
+            host='redis-10782.c10.us-east-1-2.ec2.cloud.redislabs.com',
+            port=10782, 
             password='Tx8rR5v7fguToeN7rowBSeit5IpppTrd')
         
-        print('Registro Ponto', r)
+        print('Registro Ponto no Redis', r)
 
-        chave = f'Mateus-{datetime.now().strftime("%d%m%Y%S")}'
+        chave = f'Mateus-{datetime.now().strftime("%d-%m-%Y")}'
         print(chave)
         r.set(chave, str(datetime.now()))
         
